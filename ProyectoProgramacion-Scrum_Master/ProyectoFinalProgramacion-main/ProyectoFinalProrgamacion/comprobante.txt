@@ -1,0 +1,22 @@
+---------- COMPROBANTE DE REGISTRO ----------
+Placa: ACN-875
+Cedula: 151008455
+Edad del propietario: 52
+Anio: 2015
+Tipo: 5
+Avaluo: 5000.00
+Revisiones: 1
+Valor a pagar matricula: 547.50
+---------------------------------------------
+
+---------- COMPROBANTE DE REGISTRO ----------
+Placa: PCB-982
+Cedula: 151008455
+Edad del propietario: 84
+Anio: 2021
+Tipo: 5
+Avaluo: 2000.00
+Revisiones: 1
+Valor a pagar matricula: 169.00
+---------------------------------------------
+
