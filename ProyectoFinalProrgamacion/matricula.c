@@ -8,7 +8,7 @@
 
 float calcularMatricula (char placa[], float avaluo, int anio, int edad, int revisiones, int tipo) {
 	int total, mesCorrespondiente, contador;
-	float tasaFija, impuesto = avaluo * 0.0015, totalMatricula, valor, cilindraje, impuestoCilindraje,  impuestoAvaluo, impuestoMes, impuestoRevisiones, descuentoEdad;
+	float tasaFija, impuesto = avaluo * 0.0015, totalMatricula, cilindraje, impuestoCilindraje,  impuestoAvaluo, impuestoMes, impuestoRevisiones, descuentoEdad;
 	int anioActual = 2025, antiguedad = anioActual - anio;
 	char placaMulta[100][10], verificarCilindraje[5];
 	

@@ -5,6 +5,23 @@
 #include <locale.h>
 #include "matricula.h"
 
+
+
+//funcion para log de errores 
+
+void log_error (const char *message) {
+	
+	FILE *logFile = fopen ("error_log.txt", "a");
+	
+	if (logFile == NULL) {
+		printf ("No hay un archivo para el log de errores \n");
+		return;
+	}
+	//para guardar el mensaje en el archivo
+	fprintf(logFile, "%s\n", message);
+	fclose(logFile); 
+}
+
 // MENU PRINCIPAL
 int mostrarMenu() {
 	int menu;
@@ -75,15 +92,18 @@ void registrarVehiculo() {
 		convertirAMayusculas(placa);
 		if (strlen(placa) > 8 || strlen(placa) < 7) {
 			printf("Error: Ingrese la placa en el formato correcto\n");
+			log_error ("Error:Formato incorrecto de placa");
 		}
 		if (strchr(placa, '-') == NULL) {
 			printf("Error: Ingrese la placa con el guion (-).\n");
+			log_error ("Error:Formato Ingrese la placa con el guion (-)");
 		}
 		
 			for (int i = 0; i<=numLista; i++){
 				if ( strcmp(listaVehiculos[i].placa, placa)==0){
 					placaNueva=0;
 					printf("ERROR: El vehiculo de placa %s ya está matriculado. \n", placa);
+					log_error ("Error: Intento de registro de placa matriculada anteriormente");
 				}
 			}
 			
@@ -99,9 +119,11 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarCedula, "0123456789") != strlen(verificarCedula)) {
 			printf("Error: solo se permiten numeros.\n");
+			log_error ("Error: Ingreso de cedula con letras");
 		}
 		if (strlen(verificarCedula) != 10) {
 			printf("Error: ingrese un numero de cedula valido.\n");
+			log_error ("Error: Cdula con una longitud incorrecta");
 		}
 		
 	} while (strspn(verificarCedula, "0123456789") != strlen(verificarCedula) || strlen(verificarCedula) != 10);
@@ -115,9 +137,11 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarEdad, "0123456789") != strlen(verificarEdad)) {
 			printf("Error: solo se permiten numeros.\n");
+			log_error ("Error: Ingreso de edad con letras");
 		}
 		if (atoi(verificarEdad) < 18 || atoi(verificarEdad) > 100) {
 			printf("Error: ingrese una edad válida.\n");
+			log_error ("Error: Ingreso de edad invalida, fuera del rango establecido");
 		}
 		
 	} while (strspn(verificarEdad, "0123456789") != strlen(verificarEdad) || atoi(verificarEdad) < 18 || atoi(verificarEdad) > 100);
@@ -131,6 +155,7 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4) {
 			printf("Error: Ingrese el anio en el formato correcto.\n");
+			log_error ("Error: Ingreso de formato del año incorrecto");
 		}
 		
 	} while (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4 );
@@ -139,11 +164,13 @@ void registrarVehiculo() {
 	
 	while (anio < 1950 || anio > 2025) {
 		printf("Error: Ingrese el año entre 1950 y 2025.\n");
+		log_error ("Error: Ingreso de año fuera del rango establecido");
 		printf("Ingrese el anio del vehiculo: ");
 		scanf("%s", verificarAnio);
 		
 		if (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4) {
 			printf("Error: Ingrese el anio en el formato correcto.\n");
+			log_error ("Error: Ingreso del año en un formato incorrecto");
 		}
 		anio = atof(verificarAnio); 
 	}
@@ -175,6 +202,7 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarAvaluo, "0123456789.") != strlen(verificarAvaluo)) {
 			printf("Error: Solo se aceptan numeros.\n");
+			log_error ("Error: Ingreso de avaluo con letras");
 		}
 		
 	} while (strspn(verificarAvaluo, "0123456789.") != strlen(verificarAvaluo));
@@ -188,6 +216,7 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarRevisiones, "0123456789") != strlen(verificarRevisiones)) {
 			printf("Error: solo se permiten numeros.\n");
+			log_error ("Error: Ingreso de de dato de revision con letras");
 		}
 		
 	} while (strspn(verificarRevisiones, "0123456789") != strlen(verificarRevisiones));
@@ -203,6 +232,7 @@ void registrarVehiculo() {
 	valorMatricula = calcularMatricula(placa, avaluo, anio, edad, revisiones, tipo);
 	
 	if (valorMatricula==0){
+		log_error ("No se genero un valor para el pago de la matricula");
 		return;
 	}else{
 		
@@ -219,6 +249,7 @@ void registrarVehiculo() {
 	
 	if (strcmp(confirmarPago, "si") != 0) {
 		printf("Registro cancelado. No se genero comprobante.\n");
+		
 		return;
 	}
 	
@@ -242,9 +273,12 @@ void registrarVehiculo() {
 		printf("Pago confirmado. Comprobante generado exitosamente.\n");
 	} else {
 		printf("Error al generar el comprobante.\n");
+		log_error("Error al generar comprobante para la placa");
 	}
 	}
 }
+
+
 
 // Ingreso multiple de vehiculos
 void procesarIngreso() {
