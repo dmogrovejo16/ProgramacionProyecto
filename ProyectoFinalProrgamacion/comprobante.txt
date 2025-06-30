@@ -1,2 +1,13 @@
 
 
+---------- COMPROBANTE DE REGISTRO ----------
+Placa: ABC-972
+Cedula: 151008455
+Edad del propietario: 58
+Anio: 2015
+Tipo: 4
+Avaluo: 50000.00
+Revisiones: 3
+Valor a pagar matricula: 660.00
+---------------------------------------------
+

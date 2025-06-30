@@ -3,24 +3,9 @@
 #include <ctype.h>
 #include <string.h>
 #include <locale.h>
-#include "matricula.h"
+#include "procesos.h"
 
-
-
-//funcion para log de errores 
-
-void log_error (const char *message) {
-	
-	FILE *logFile = fopen ("error_log.txt", "a");
-	
-	if (logFile == NULL) {
-		printf ("No hay un archivo para el log de errores \n");
-		return;
-	}
-	//para guardar el mensaje en el archivo
-	fprintf(logFile, "%s\n", message);
-	fclose(logFile); 
-}
+int posicion = -1;
 
 // MENU PRINCIPAL
 int mostrarMenu() {
@@ -39,7 +24,6 @@ int mostrarMenu() {
 	return menu;
 }
 
-int numLista = 0;  // Contador global de vehículos registrados
 float valorMatricula;
 //Funcion para transformar la placa a mayusculas
 void convertirAMayusculas(char *cadena) {
@@ -92,18 +76,18 @@ void registrarVehiculo() {
 		convertirAMayusculas(placa);
 		if (strlen(placa) > 8 || strlen(placa) < 7) {
 			printf("Error: Ingrese la placa en el formato correcto\n");
-			log_error ("Error:Formato incorrecto de placa");
+
 		}
 		if (strchr(placa, '-') == NULL) {
 			printf("Error: Ingrese la placa con el guion (-).\n");
-			log_error ("Error:Formato Ingrese la placa con el guion (-)");
+
 		}
 		
 			for (int i = 0; i<=numLista; i++){
 				if ( strcmp(listaVehiculos[i].placa, placa)==0){
 					placaNueva=0;
 					printf("ERROR: El vehiculo de placa %s ya está matriculado. \n", placa);
-					log_error ("Error: Intento de registro de placa matriculada anteriormente");
+				
 				}
 			}
 			
@@ -119,11 +103,11 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarCedula, "0123456789") != strlen(verificarCedula)) {
 			printf("Error: solo se permiten numeros.\n");
-			log_error ("Error: Ingreso de cedula con letras");
+		
 		}
 		if (strlen(verificarCedula) != 10) {
 			printf("Error: ingrese un numero de cedula valido.\n");
-			log_error ("Error: Cdula con una longitud incorrecta");
+			
 		}
 		
 	} while (strspn(verificarCedula, "0123456789") != strlen(verificarCedula) || strlen(verificarCedula) != 10);
@@ -137,40 +121,56 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarEdad, "0123456789") != strlen(verificarEdad)) {
 			printf("Error: solo se permiten numeros.\n");
-			log_error ("Error: Ingreso de edad con letras");
+
 		}
 		if (atoi(verificarEdad) < 18 || atoi(verificarEdad) > 100) {
 			printf("Error: ingrese una edad válida.\n");
-			log_error ("Error: Ingreso de edad invalida, fuera del rango establecido");
+		
 		}
 		
 	} while (strspn(verificarEdad, "0123456789") != strlen(verificarEdad) || atoi(verificarEdad) < 18 || atoi(verificarEdad) > 100);
 	
 	edad = atoi(verificarEdad);
-	
+	getchar();
 	// Validar año
 	do {
+		posicion=-1;
 		printf("Ingrese el anio del vehiculo: ");
-		scanf("%s", verificarAnio);
-		
-		if (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4) {
-			printf("Error: Ingrese el anio en el formato correcto.\n");
-			log_error ("Error: Ingreso de formato del año incorrecto");
+		fgets(verificarAnio, sizeof(verificarAnio), stdin); getchar();
+		for (int i = 0; i < strlen(verificarAnio); i++) {
+			if (verificarAnio[i] == ' ') {
+				posicion = i;
+				break; // Sale al encontrar el primer espacio
+			}
 		}
 		
-	} while (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4 );
+		
+		if (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4||posicion < strlen(verificarAnio)-1) {
+			printf("Error: Ingrese el anio en el formato correcto.\n");
+
+		}
+		
+	} while (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4||posicion < strlen(verificarAnio)-1 );
 	
 	anio = atof(verificarAnio); 
-	
+	posicion=-1;
 	while (anio < 1950 || anio > 2025) {
+		posicion=-1;
 		printf("Error: Ingrese el año entre 1950 y 2025.\n");
-		log_error ("Error: Ingreso de año fuera del rango establecido");
+	
 		printf("Ingrese el anio del vehiculo: ");
 		scanf("%s", verificarAnio);
 		
-		if (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4) {
+		for (int i = 0; i < strlen(verificarAnio); i++) {
+			if (verificarAnio[i] == ' ') {
+				posicion = i;
+				break; // Sale al encontrar el primer espacio
+			}
+		}
+		
+		if (strspn(verificarAnio, "0123456789") != strlen(verificarAnio) || strlen(verificarAnio) > 4 || posicion < strlen(verificarAnio)-1) {
 			printf("Error: Ingrese el anio en el formato correcto.\n");
-			log_error ("Error: Ingreso del año en un formato incorrecto");
+			
 		}
 		anio = atof(verificarAnio); 
 	}
@@ -202,7 +202,10 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarAvaluo, "0123456789.") != strlen(verificarAvaluo)) {
 			printf("Error: Solo se aceptan numeros.\n");
-			log_error ("Error: Ingreso de avaluo con letras");
+		}
+		
+		if (strlen(verificarAvaluo) > 500000 || strlen(verificarAvaluo) < 500) {
+			printf("Error: Ingrese un avaluo valido.\n");
 		}
 		
 	} while (strspn(verificarAvaluo, "0123456789.") != strlen(verificarAvaluo));
@@ -216,7 +219,10 @@ void registrarVehiculo() {
 		
 		if (strspn(verificarRevisiones, "0123456789") != strlen(verificarRevisiones)) {
 			printf("Error: solo se permiten numeros.\n");
-			log_error ("Error: Ingreso de de dato de revision con letras");
+		}
+		
+		if (atoi(verificarRevisiones)<0 || atoi(verificarRevisiones)>3) {
+			printf("Error: Ingrese una cantidad valida.\n");
 		}
 		
 	} while (strspn(verificarRevisiones, "0123456789") != strlen(verificarRevisiones));
@@ -232,7 +238,7 @@ void registrarVehiculo() {
 	valorMatricula = calcularMatricula(placa, avaluo, anio, edad, revisiones, tipo);
 	
 	if (valorMatricula==0){
-		log_error ("No se genero un valor para el pago de la matricula");
+
 		return;
 	}else{
 		
@@ -280,78 +286,6 @@ void registrarVehiculo() {
 
 
 
-// Ingreso multiple de vehiculos
-void procesarIngreso() {
-	char continuar[4];
-	do {
-		system("cls");
-		registrarVehiculo();
-		numLista++;
-		printf("\n¿Desea ingresar otro vehiculo adicional? (si/no): ");
-		scanf("%s", continuar);
-	} while (strcmp(continuar, "si") == 0);
-}
-
-// Funcion para listar vehiculos
-void listarVehiculos() {
-	system("cls");
-	
-	FILE *archivo = fopen("comprobante.txt", "r");
-	if (archivo == NULL) {
-		printf("No hay vehiculos registrados en el archivo.\n");
-		return;
-	}
-	
-	printf("\n-------- LISTADO DE VEHICULOS --------\n\n");
-	
-	char linea[200];
-	while (fgets(linea, sizeof(linea), archivo)) {
-		printf("%s", linea);
-	}
-	
-	fclose(archivo);
-}
-
-
-// Funcion para buscar en el archivo
-void buscarVehiculo() {
-	char placaBuscada[9];
-	int encontrado = 0;
-	char linea[200];
-	
-	system("cls");
-	printf("Ingrese la placa del vehiculo que desea buscar: ");
-	scanf("%s", placaBuscada);
-	convertirAMayusculas(placaBuscada);
-	
-	FILE *archivo = fopen("comprobante.txt", "r");
-	if (archivo == NULL) {
-		printf("Error: No se pudo abrir el archivo de comprobantes.\n");
-		return;
-	}
-	
-	// Búsqueda basada en líneas
-	while (fgets(linea, sizeof(linea), archivo)) {
-		if (strstr(linea, "Placa:") && strstr(linea, placaBuscada)) {
-			encontrado = 1;
-			printf("\n%s", linea);  // imprime la línea de la placa
-			
-			// Imprimir las 6 líneas siguientes (los demás datos)
-			for (int i = 0; i < 7; i++) {
-				if (fgets(linea, sizeof(linea), archivo)) {
-					printf("%s", linea);
-				}
-			}
-			break;
-		}
-	}
-	
-	fclose(archivo);
-	
-	if (!encontrado) {
-		printf("Vehiculo con placa %s no encontrado en el archivo.\n", placaBuscada);
-	}
-}
 
 
 // Funcion principal
