@@ -12,10 +12,11 @@ int gestionarUsuarios() {
 	
 	
 	do{
-		printf("=== SISTEMA DE USUARIOS ===\n");
-		printf("1. Iniciar sesion\n");
-		printf("2. Registrarse\n");
-		printf("3. Salir\n");
+		printf("+------- SISTEMA DE USUARIOS -------+\n");
+		printf("|1. Iniciar sesion                  |\n");
+		printf("|2. Registrarse                     |\n");
+		printf("|3. Salir                           |\n");
+		printf("+-----------------------------------+\n");
 		printf("Seleccione una opcion: ");
 		scanf("%d", &opcion);
 		getchar(); // Para limpiar salto de linea del buffer
