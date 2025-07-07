@@ -4,6 +4,7 @@
 #include <string.h>
 #include <locale.h>
 #include "procesos.h"
+#include "login.h"
 
 int posicion = -1;
 
@@ -290,9 +291,10 @@ void registrarVehiculo() {
 
 // Funcion principal
 int main() {
-	int menu;
+	int menu, val;
 	char regresarMenu[4];
-	
+	val = gestionarUsuarios();
+	if (val==5){
 	do {
 		menu = mostrarMenu();
 		
@@ -328,5 +330,7 @@ int main() {
 		// Y la condición queda igual:
 	} while (menu != 4 && strcmp(regresarMenu, "si") == 0);
 	
+	
+	}
 	return 0;
 }
