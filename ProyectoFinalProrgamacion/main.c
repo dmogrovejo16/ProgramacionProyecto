@@ -72,7 +72,7 @@ void registrarVehiculo() {
 	// Validar placa
 	do {
 		placaNueva=1;
-		printf("Ingrese la placa del vehiculo (ABC-9999): ");
+		printf("Ingrese la placa del vehiculo (ABC-0123): ");
 		scanf("%s", placa);
 		convertirAMayusculas(placa);
 		if (strlen(placa) > 8 || strlen(placa) < 7) {
@@ -205,11 +205,11 @@ void registrarVehiculo() {
 			printf("Error: Solo se aceptan numeros.\n");
 		}
 		
-		if (strlen(verificarAvaluo) > 500000 || strlen(verificarAvaluo) < 500) {
+		if (atof(verificarAvaluo) > 500000 || atof(verificarAvaluo) < 500) {
 			printf("Error: Ingrese un avaluo valido.\n");
 		}
 		
-	} while (strspn(verificarAvaluo, "0123456789.") != strlen(verificarAvaluo));
+	} while (strspn(verificarAvaluo, "0123456789.") != strlen(verificarAvaluo)||atof(verificarAvaluo) > 500000 || atof(verificarAvaluo) < 500);
 	
 	avaluo = atof(verificarAvaluo);
 	
@@ -226,7 +226,7 @@ void registrarVehiculo() {
 			printf("Error: Ingrese una cantidad valida.\n");
 		}
 		
-	} while (strspn(verificarRevisiones, "0123456789") != strlen(verificarRevisiones));
+	} while (strspn(verificarRevisiones, "0123456789") != strlen(verificarRevisiones)||atoi(verificarRevisiones)<0 || atoi(verificarRevisiones)>3);
 	
 	revisiones = atoi(verificarRevisiones);
 	
