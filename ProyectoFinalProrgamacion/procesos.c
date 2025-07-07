@@ -4,7 +4,7 @@
 #include <time.h>
 #include "procesos.h"
 
-int numLista = 0;  // Contador global de vehículos registrados
+int numLista = 0;  // Contador global de vehÃ­culos registrados
 
 
 void buscarVehiculo() {
@@ -23,13 +23,13 @@ void buscarVehiculo() {
 		return;
 	}
 	
-	// Búsqueda basada en líneas
+	// BÃºsqueda basada en lÃ­neas
 	while (fgets(linea, sizeof(linea), archivo)) {
 		if (strstr(linea, "Placa:") && strstr(linea, placaBuscada)) {
 			encontrado = 1;
-			printf("\n%s", linea);  // imprime la línea de la placa
+			printf("\n%s", linea);  // imprime la lÃ­nea de la placa
 			
-			// Imprimir las 6 líneas siguientes (los demás datos)
+			// Imprimir las 6 lÃ­neas siguientes (los demÃ¡s datos)
 			for (int i = 0; i < 7; i++) {
 				if (fgets(linea, sizeof(linea), archivo)) {
 					printf("%s", linea);
@@ -54,7 +54,7 @@ void procesarIngreso() {
 		system("cls");
 		registrarVehiculo();
 		numLista++;
-		printf("\n¿Desea ingresar otro vehiculo adicional? (si/no): ");
+		printf("\nÂ¿Desea ingresar otro vehiculo adicional? (si/no): ");
 		scanf("%s", continuar);
 	} while (strcmp(continuar, "si") == 0);
 }
@@ -105,7 +105,7 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 	struct tm* fecha = localtime(&t);  
 	int mes=fecha->tm_mon + 1;
 	
-	// Descuento por antigüedad
+	// Descuento por antigÃ¼edad
 	if (antiguedad > 20) {
 		impuesto *= 0.7;  // 30% de descuento
 	}
@@ -134,10 +134,10 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 		scanf("%s", verificarCilindraje);
 		
 		if (strspn(verificarCilindraje, "0123456789.,") != strlen(verificarCilindraje)) {
-			printf("Error: solo se permiten números.\n");
+			printf("Error: solo se permiten nÃºmeros.\n");
 		}
 		
-	} while (strspn(verificarCilindraje, "0123456789") != strlen(verificarCilindraje));	
+	} while (strspn(verificarCilindraje, "0123456789.,") != strlen(verificarCilindraje));	
 	cilindraje = atof(verificarCilindraje);
 	
 	if (cilindraje <=1.5){ //Calculamos impuesto por cilindraje
