@@ -179,22 +179,22 @@ void registrarVehiculo() {
 	// Ingresar tipo
 	do{
 		system("cls");
-	printf("\n Por favor seleccione el tipo de vehiculo: ");
-	printf("\n+---------------MENU---------------+");
-	printf("\n| 1. Liviano                       |");
-	printf("\n| 2. Taxi, furgoneta o camioneta   |");
-	printf("\n| 3. Pesados                       |");
-	printf("\n| 4. Buses                         |");
-	printf("\n| 5. Motocicletas                  |");
-	printf("\n+----------------------------------+");
-	printf("\nIngrese su opcion: ");
-	scanf(" %[^\n]s", verificarTipo);  // Lee con espacios
-	if (strspn(verificarTipo, "0123456789") != strlen(verificarTipo)) {
-		printf("Error: solo se permiten numeros.\n");
-	}
-	if(atof(verificarTipo)<1||atof(verificarTipo)>5){
-		printf("Error: ingrese una opciÃ³n vÃ¡lida.\n");
-	}
+		printf("\n Por favor seleccione el tipo de vehiculo: ");
+		printf("\n+---------------MENU---------------+");
+		printf("\n| 1. Liviano                       |");
+		printf("\n| 2. Taxi, furgoneta o camioneta   |");
+		printf("\n| 3. Pesados                       |");
+		printf("\n| 4. Buses                         |");
+		printf("\n| 5. Motocicletas                  |");
+		printf("\n+----------------------------------+");
+		printf("\nIngrese su opcion: ");
+		scanf(" %[^\n]s", verificarTipo);  // Lee con espacios
+		if (strspn(verificarTipo, "0123456789") != strlen(verificarTipo)) {
+			printf("Error: solo se permiten numeros.\n");
+		}
+		if(atof(verificarTipo)<1||atof(verificarTipo)>5){
+			printf("Error: ingrese una opciÃ³n vÃ¡lida.\n");
+		}
 	}while(strspn(verificarTipo, "0123456789") != strlen(verificarTipo) || atof(verificarTipo)<1||atof(verificarTipo)>5);
 	tipo = atof(verificarTipo);
 	// Validar avalÃºo
