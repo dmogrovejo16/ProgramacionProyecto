@@ -20,6 +20,7 @@ void buscarVehiculo() {
 	FILE *archivo = fopen("comprobante.txt", "r");
 	if (archivo == NULL) {
 		printf("Error: No se pudo abrir el archivo de comprobantes.\n");
+		log_error("Error al abrir 'comprobante.txt' en buscarVehiculo().");
 		return;
 	}
 	
@@ -54,7 +55,7 @@ void procesarIngreso() {
 		system("cls");
 		registrarVehiculo();
 		numLista++;
-		printf("\n¿Desea ingresar otro vehiculo adicional? (si/no): ");
+		printf("\n�Desea ingresar otro vehiculo adicional? (si/no): ");
 		scanf("%s", continuar);
 	} while (strcmp(continuar, "si") == 0);
 }
@@ -81,6 +82,7 @@ void listarVehiculos() {
 	FILE *archivo = fopen("comprobante.txt", "r");
 	if (archivo == NULL) {
 		printf("No hay vehiculos registrados en el archivo.\n");
+		log_error("Error al abrir 'comprobante.txt' en listarVehiculos().");
 		return;
 	}
 	
@@ -119,6 +121,7 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 		}
 	}else{
 		printf("ERROR: Archivo de base de multas no se puedo abrir. \n");
+		log_error("Error al abrir 'multas.txt' en calcularMatricula().");
 	}
 	fclose(archivo);
 	for (int i = 0; i<total; i++){ //Comparar si la placa ingresada esta en el archivo
@@ -134,7 +137,7 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 		scanf("%s", verificarCilindraje);
 		
 		if (strspn(verificarCilindraje, "0123456789.,") != strlen(verificarCilindraje)) {
-			printf("Error: solo se permiten números.\n");
+			printf("Error: solo se permiten numeros.\n");
 		}
 		
 	} while (strspn(verificarCilindraje, "0123456789.,") != strlen(verificarCilindraje));	
@@ -237,7 +240,7 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 	
 	if (revisiones<3){//Vemos si cumplio todas las revisiones
 		impuestoRevisiones = 50; //Se le agrega la multa al valor final
-		printf("NO cumple las revisiones tecnicas necesarias, se le aplicara una multa de $50 \n");
+		printf("No cumple las revisiones tecnicas necesarias, se le aplicara una multa de $50 \n");
 	}
 	
 	totalMatricula = tasaFija+impuesto+impuestoAvaluo+impuestoCilindraje+impuestoMes+impuestoRevisiones;
