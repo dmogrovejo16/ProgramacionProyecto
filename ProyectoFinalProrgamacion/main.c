@@ -7,6 +7,7 @@
 #include "login.h"
 
 int posicion = -1;
+int numeroLista = 0; 
 
 // MENU PRINCIPAL
 int mostrarMenu() {
@@ -34,19 +35,19 @@ void convertirAMayusculas(char *cadena) {
 	}
 }
 
-// Estructura que almacena los datos de un vehículo
+// Estructura que almacena los datos de un vehiculo
 struct Vehiculo {
-	char placa[9];    // Placa (máx 8 + '\0') y tipo del vehículo
+	char placa[9]; 
 	int cedula, anio, revisiones,  tipo;
 	int edadPropietario;
 	float avaluo;
 };
 
-// Arreglo para almacenar hasta 100 vehículos
+// Arreglo para almacenar hasta 100 
 struct Vehiculo listaVehiculos[100];
 
 
-// Crea y almacena un vehículo
+// Crea y almacena un vehiculo
 struct Vehiculo crearVehiculo(char placa[8], int cedula, int anio, int tipo, float avaluo, int revisiones, int edad) {
 	struct Vehiculo v;
 	
@@ -58,7 +59,7 @@ struct Vehiculo crearVehiculo(char placa[8], int cedula, int anio, int tipo, flo
 	v.avaluo = avaluo;
 	v.revisiones = revisiones;
 	
-	listaVehiculos[numLista] = v;
+	listaVehiculos[numeroLista] = v;
 	
 	return v;
 }
@@ -72,7 +73,7 @@ void registrarVehiculo() {
 	// Validar placa
 	do {
 		placaNueva=1;
-		printf("Ingrese la placa del vehiculo: ");
+		printf("Ingrese la placa del vehiculo (ABC-0123): ");
 		scanf("%s", placa);
 		convertirAMayusculas(placa);
 		if (strlen(placa) > 8 || strlen(placa) < 7) {
@@ -84,10 +85,10 @@ void registrarVehiculo() {
 
 		}
 		
-			for (int i = 0; i<=numLista; i++){
+			for (int i = 0; i<=numeroLista; i++){
 				if ( strcmp(listaVehiculos[i].placa, placa)==0){
 					placaNueva=0;
-					printf("ERROR: El vehiculo de placa %s ya está matriculado. \n", placa);
+					printf("ERROR: El vehiculo de placa %s ya esta matriculado. \n", placa);
 				
 				}
 			}
@@ -97,7 +98,7 @@ void registrarVehiculo() {
 	
 	
 	
-	// Validar cédula
+	// Validar cÃƒÂ©dula
 	do {
 		printf("Ingrese el numero de cedula del propietario: ");
 		scanf("%s", verificarCedula);
@@ -125,7 +126,7 @@ void registrarVehiculo() {
 
 		}
 		if (atoi(verificarEdad) < 18 || atoi(verificarEdad) > 100) {
-			printf("Error: ingrese una edad válida.\n");
+			printf("Error: ingrese una edad valida.\n");
 		
 		}
 		
@@ -133,7 +134,7 @@ void registrarVehiculo() {
 	
 	edad = atoi(verificarEdad);
 	getchar();
-	// Validar año
+	// Validar anio
 	do {
 		posicion=-1;
 		printf("Ingrese el anio del vehiculo: ");
@@ -157,7 +158,7 @@ void registrarVehiculo() {
 	posicion=-1;
 	while (anio < 1950 || anio > 2025) {
 		posicion=-1;
-		printf("Error: Ingrese el año entre 1950 y 2025.\n");
+		printf("Error: Ingrese el anio entre 1950 y 2025.\n");
 	
 		printf("Ingrese el anio del vehiculo: ");
 		scanf("%s", verificarAnio);
@@ -178,25 +179,26 @@ void registrarVehiculo() {
 	
 	// Ingresar tipo
 	do{
-	printf("\n Por favor seleccione el tipo de vehiculo: ");
-	printf("\n+---------------MENU---------------+");
-	printf("\n| 1. Liviano                       |");
-	printf("\n| 2. Taxi, furgoneta o camioneta   |");
-	printf("\n| 3. Pesados                       |");
-	printf("\n| 4. Buses                         |");
-	printf("\n| 5. Motocicletas                  |");
-	printf("\n+----------------------------------+");
-	printf("\nIngrese su opcion: ");
-	scanf(" %[^\n]s", verificarTipo);  // Lee con espacios
-	if (strspn(verificarTipo, "0123456789") != strlen(verificarTipo)) {
-		printf("Error: solo se permiten numeros.\n");
-	}
-	if(atof(verificarTipo)<1||atof(verificarTipo)>5){
-		printf("Error: ingrese una opción válida.\n");
-	}
+		system("cls");
+		printf("\n Por favor seleccione el tipo de vehiculo: ");
+		printf("\n+---------------MENU---------------+");
+		printf("\n| 1. Liviano                       |");
+		printf("\n| 2. Taxi, furgoneta o camioneta   |");
+		printf("\n| 3. Pesados                       |");
+		printf("\n| 4. Buses                         |");
+		printf("\n| 5. Motocicletas                  |");
+		printf("\n+----------------------------------+");
+		printf("\nIngrese su opcion: ");
+		scanf(" %[^\n]s", verificarTipo);  // Lee con espacios
+		if (strspn(verificarTipo, "0123456789") != strlen(verificarTipo)) {
+			printf("Error: solo se permiten numeros.\n");
+		}
+		if(atof(verificarTipo)<1||atof(verificarTipo)>5){
+			printf("Error: ingrese una opcion valida.\n");
+		}
 	}while(strspn(verificarTipo, "0123456789") != strlen(verificarTipo) || atof(verificarTipo)<1||atof(verificarTipo)>5);
 	tipo = atof(verificarTipo);
-	// Validar avalúo
+	// Validar avaluo
 	do {
 		printf("Ingrese el avaluo del vehiculo: ");
 		scanf("%s", verificarAvaluo);
@@ -205,11 +207,11 @@ void registrarVehiculo() {
 			printf("Error: Solo se aceptan numeros.\n");
 		}
 		
-		if (strlen(verificarAvaluo) > 500000 || strlen(verificarAvaluo) < 500) {
+		if (atof(verificarAvaluo) > 500000 || atof(verificarAvaluo) < 500) {
 			printf("Error: Ingrese un avaluo valido.\n");
 		}
 		
-	} while (strspn(verificarAvaluo, "0123456789.") != strlen(verificarAvaluo));
+	} while (strspn(verificarAvaluo, "0123456789.") != strlen(verificarAvaluo)||atof(verificarAvaluo) > 500000 || atof(verificarAvaluo) < 500);
 	
 	avaluo = atof(verificarAvaluo);
 	
@@ -226,14 +228,19 @@ void registrarVehiculo() {
 			printf("Error: Ingrese una cantidad valida.\n");
 		}
 		
-	} while (strspn(verificarRevisiones, "0123456789") != strlen(verificarRevisiones));
+	} while (strspn(verificarRevisiones, "0123456789") != strlen(verificarRevisiones)||atoi(verificarRevisiones)<0 || atoi(verificarRevisiones)>3);
 	
 	revisiones = atoi(verificarRevisiones);
+	if (revisiones != 3) {
+		printf("Error: Solo se pueden registrar vehiculos con exactamente 3 revisiones.\n");
+		return;
+	}
 	
-	// Crear vehículo
+	
+	// Crear vehiculo
 	crearVehiculo(placa, cedula, anio, tipo, avaluo, revisiones, edad);
 	
-	// Crear vehículo y agregarlo a la lista
+	// Crear vehiculo y agregarlo a la lista
 	struct Vehiculo nuevo = crearVehiculo(placa, cedula, anio, tipo, avaluo, revisiones, edad);
 
 	valorMatricula = calcularMatricula(placa, avaluo, anio, edad, revisiones, tipo);
@@ -245,11 +252,21 @@ void registrarVehiculo() {
 		
 	
 	char confirmarPago[4];
-	printf("Valor a pagar por matricula: %.2f\n", valorMatricula);
-	printf("¿Desea confirmar el pago? (si/no): ");
+	system("cls");
+	printf( "---------- COMPROBANTE DE REGISTRO ----------\n");
+	printf( "Placa: %s\n", nuevo.placa);
+	printf( "Cedula: %d\n", nuevo.cedula);
+	printf( "Edad del propietario: %d\n", nuevo.edadPropietario);
+	printf( "Anio: %d\n", nuevo.anio);
+	printf( "Tipo: %d\n", nuevo.tipo);
+	printf( "Avaluo: %.2f\n", nuevo.avaluo);
+	printf( "Revisiones: %d\n", nuevo.revisiones);
+	printf( "Valor a pagar matricula: %.2f\n", valorMatricula);
+	printf( "---------------------------------------------\n\n");
+	printf("Â¿Desea confirmar el pago? (si/no): ");
 	scanf("%s", confirmarPago);
 	
-	// Convertir a minúsculas
+	// Convertir a minusculas
 	for (int i = 0; confirmarPago[i]; i++) {
 		confirmarPago[i] = tolower(confirmarPago[i]);
 	}
@@ -280,57 +297,42 @@ void registrarVehiculo() {
 		printf("Pago confirmado. Comprobante generado exitosamente.\n");
 	} else {
 		printf("Error al generar el comprobante.\n");
-		log_error("Error al generar comprobante para la placa");
+		char errorMsg[100];
+		sprintf(errorMsg, "Error al generar comprobante para la placa %s", nuevo.placa);
+		log_error(errorMsg);
 	}
 	}
 }
 
-
-
-
-
-// Funcion principal
 int main() {
 	int menu, val;
 	char regresarMenu[4];
 	val = gestionarUsuarios();
-	if (val==5){
-	do {
-		menu = mostrarMenu();
-		
-		// Selección de opciones
-		switch (menu) {
-		case 1:
-			procesarIngreso();
-			break;
-		case 2:
-			buscarVehiculo();
-			break;
-		case 3:
-			listarVehiculos();
-			break;
-		case 4:
-			printf("\nSaliendo...\n");
-			break;
-		default:
-			printf("\nFunción invalida.\n");
-		}
-		
-		// Pregunta si desea regresar al menu, excepto si elige salir
-		if (menu != 4) {
-			printf("\n¿Desea regresar al menu? (si/no): ");
-			scanf("%s", regresarMenu);
+	
+	if (val == 5) {
+		do {
+			strcpy(regresarMenu, "si");  
+			menu = mostrarMenu();
 			
-			// Convertimos la respuesta a minúsculas
-			for (int i = 0; regresarMenu[i]; i++) {
-				regresarMenu[i] = tolower(regresarMenu[i]);
+			switch (menu) {
+			case 1: procesarIngreso(); break;
+			case 2: buscarVehiculo(); break;
+			case 3:
+				listarVehiculos();
+				printf("\nDesea regresar al menu? (si/no): ");
+				scanf("%s", regresarMenu);
+				for (int i = 0; regresarMenu[i]; i++) {
+					regresarMenu[i] = tolower(regresarMenu[i]);
+				}
+				break;
+			case 4:
+				printf("\nSaliendo...\n");
+				break;
+			default:
+				printf("\nFuncion invalida.\n");
 			}
-		}
-		
-		// Y la condición queda igual:
-	} while (menu != 4 && strcmp(regresarMenu, "si") == 0);
-	
-	
+		} while (menu != 4 && strcmp(regresarMenu, "no") != 0); 
 	}
+	
 	return 0;
 }

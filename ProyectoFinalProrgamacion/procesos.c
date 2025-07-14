@@ -4,7 +4,7 @@
 #include <time.h>
 #include "procesos.h"
 
-int numLista = 0;  // Contador global de vehículos registrados
+int numLista = 0;  // Contador global de vehÃ­culos registrados
 
 
 void buscarVehiculo() {
@@ -20,16 +20,17 @@ void buscarVehiculo() {
 	FILE *archivo = fopen("comprobante.txt", "r");
 	if (archivo == NULL) {
 		printf("Error: No se pudo abrir el archivo de comprobantes.\n");
+		log_error("Error al abrir 'comprobante.txt' en buscarVehiculo().");
 		return;
 	}
 	
-	// Búsqueda basada en líneas
+	// BÃºsqueda basada en lÃ­neas
 	while (fgets(linea, sizeof(linea), archivo)) {
 		if (strstr(linea, "Placa:") && strstr(linea, placaBuscada)) {
 			encontrado = 1;
-			printf("\n%s", linea);  // imprime la línea de la placa
+			printf("\n%s", linea);  // imprime la lÃ­nea de la placa
 			
-			// Imprimir las 6 líneas siguientes (los demás datos)
+			// Imprimir las 6 lÃ­neas siguientes (los demÃ¡s datos)
 			for (int i = 0; i < 7; i++) {
 				if (fgets(linea, sizeof(linea), archivo)) {
 					printf("%s", linea);
@@ -81,6 +82,7 @@ void listarVehiculos() {
 	FILE *archivo = fopen("comprobante.txt", "r");
 	if (archivo == NULL) {
 		printf("No hay vehiculos registrados en el archivo.\n");
+		log_error("Error al abrir 'comprobante.txt' en listarVehiculos().");
 		return;
 	}
 	
@@ -105,7 +107,7 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 	struct tm* fecha = localtime(&t);  
 	int mes=fecha->tm_mon + 1;
 	
-	// Descuento por antigüedad
+	// Descuento por antigÃ¼edad
 	if (antiguedad > 20) {
 		impuesto *= 0.7;  // 30% de descuento
 	}
@@ -119,6 +121,7 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 		}
 	}else{
 		printf("ERROR: Archivo de base de multas no se puedo abrir. \n");
+		log_error("Error al abrir 'multas.txt' en calcularMatricula().");
 	}
 	fclose(archivo);
 	for (int i = 0; i<total; i++){ //Comparar si la placa ingresada esta en el archivo
@@ -134,10 +137,10 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 		scanf("%s", verificarCilindraje);
 		
 		if (strspn(verificarCilindraje, "0123456789.,") != strlen(verificarCilindraje)) {
-			printf("Error: solo se permiten números.\n");
+			printf("Error: solo se permiten numeros.\n");
 		}
 		
-	} while (strspn(verificarCilindraje, "0123456789") != strlen(verificarCilindraje));	
+	} while (strspn(verificarCilindraje, "0123456789.,") != strlen(verificarCilindraje));	
 	cilindraje = atof(verificarCilindraje);
 	
 	if (cilindraje <=1.5){ //Calculamos impuesto por cilindraje
@@ -237,7 +240,7 @@ float calcularMatricula (char placa[], float avaluo, int anio, int edad, int rev
 	
 	if (revisiones<3){//Vemos si cumplio todas las revisiones
 		impuestoRevisiones = 50; //Se le agrega la multa al valor final
-		printf("NO cumple las revisiones tecnicas necesarias, se le aplicara una multa de $50 \n");
+		printf("No cumple las revisiones tecnicas necesarias, se le aplicara una multa de $50 \n");
 	}
 	
 	totalMatricula = tasaFija+impuesto+impuestoAvaluo+impuestoCilindraje+impuestoMes+impuestoRevisiones;

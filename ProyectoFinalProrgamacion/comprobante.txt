@@ -11,3 +11,47 @@ Revisiones: 3
 Valor a pagar matricula: 660.00
 ---------------------------------------------
 
+---------- COMPROBANTE DE REGISTRO ----------
+Placa: PBO-0448
+Cedula: 550212476
+Edad del propietario: 24
+Anio: 2001
+Tipo: 1
+Avaluo: 5800.00
+Revisiones: 3
+Valor a pagar matricula: 506.09
+---------------------------------------------
+
+---------- COMPROBANTE DE REGISTRO ----------
+Placa: XBC-4415
+Cedula: 550212435
+Edad del propietario: 19
+Anio: 2025
+Tipo: 1
+Avaluo: 17560.00
+Revisiones: 3
+Valor a pagar matricula: 496.34
+---------------------------------------------
+
+---------- COMPROBANTE DE REGISTRO ----------
+Placa: XBC-4415
+Cedula: 550212476
+Edad del propietario: 24
+Anio: 2025
+Tipo: 1
+Avaluo: 20000.00
+Revisiones: 3
+Valor a pagar matricula: 500.00
+---------------------------------------------
+
+---------- COMPROBANTE DE REGISTRO ----------
+Placa: PBO-450
+Cedula: 1803116944
+Edad del propietario: 46
+Anio: 2001
+Tipo: 1
+Avaluo: 7000.00
+Revisiones: 3
+Valor a pagar matricula: 452.35
+---------------------------------------------
+
